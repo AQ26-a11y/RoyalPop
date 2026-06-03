@@ -153,7 +153,7 @@ export function MemoryGameModal({ isOpen, onClose }: Props) {
   const PILL: React.CSSProperties = {
     display: 'flex', alignItems: 'center', gap: 8,
     padding: '12px 20px', borderRadius: 80, cursor: 'pointer',
-    fontFamily: 'var(--font-heading)', fontSize: 16, fontWeight: 400, lineHeight: '20px',
+    fontFamily: 'var(--font-heading)', fontSize: 16, fontWeight: 400, fontSynthesis: 'none', lineHeight: '20px',
   }
 
   return (
@@ -198,7 +198,7 @@ export function MemoryGameModal({ isOpen, onClose }: Props) {
         }}>
           {!isWon && (
             <h1 style={{
-              fontFamily: 'var(--font-heading)', fontSize: 80, fontWeight: 400,
+              fontFamily: 'var(--font-heading)', fontSize: 80, fontWeight: 400, fontSynthesis: 'none',
               lineHeight: '80px', letterSpacing: '-1.6px', color: '#1A1A1A', margin: 0,
             }}>
               Matching card
@@ -296,10 +296,10 @@ export function MemoryGameModal({ isOpen, onClose }: Props) {
               display: 'flex', flexDirection: 'column',
               alignItems: 'center', justifyContent: 'center', gap: 24, zIndex: 10, marginTop: '-80px',
             }}>
-              <div style={{ fontFamily: 'var(--font-heading)', fontSize: 80, fontWeight: 400, lineHeight: '80px', letterSpacing: '-1.6px', color: '#1A1A1A', marginBottom: -16 }}>
+              <div style={{ fontFamily: 'var(--font-heading)', fontSize: 80, fontWeight: 400, fontSynthesis: 'none', lineHeight: '80px', letterSpacing: '-1.6px', color: '#1A1A1A', marginBottom: -16 }}>
                 You Win!
               </div>
-              <p style={{ fontFamily: 'var(--font-heading)', fontSize: 18, fontWeight: 400, lineHeight: '28px', color: 'rgb(26,26,26)', letterSpacing: 0, textAlign: 'center', maxWidth: 480, margin: 0 }}>
+              <p style={{ fontFamily: 'var(--font-heading)', fontSize: 18, fontWeight: 400, fontSynthesis: 'none', lineHeight: '28px', color: 'rgb(26,26,26)', letterSpacing: 0, textAlign: 'center', maxWidth: 480, margin: 0 }}>
                 Scan to unlock exclusive Royal Pop content<br />the story behind the collaboration.
               </p>
               <div style={{ marginBottom: 30 }}>
@@ -309,7 +309,7 @@ export function MemoryGameModal({ isOpen, onClose }: Props) {
                 onClick={resetGame}
                 onMouseEnter={e => { const b = e.currentTarget; b.style.transform = 'scale(1.03)'; }}
                 onMouseLeave={e => { const b = e.currentTarget; b.style.transform = 'scale(1)'; }}
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, padding: '20px 48px', borderRadius: 100, background: '#1A1A1A', border: 'none', cursor: 'pointer', fontFamily: 'var(--font-heading)', fontSize: 18, fontWeight: 400, color: '#FFFFFF', transition: 'transform 0.25s ease-out', minWidth: 280 }}
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, padding: '20px 48px', borderRadius: 100, background: '#1A1A1A', border: 'none', cursor: 'pointer', fontFamily: 'var(--font-heading)', fontSize: 18, fontWeight: 400, fontSynthesis: 'none', color: '#FFFFFF', transition: 'transform 0.25s ease-out', minWidth: 280 }}
               >
                 Play again
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="#FFFFFF">

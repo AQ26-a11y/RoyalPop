@@ -64,7 +64,8 @@ export function FinalTextBlock() {
                 color: '#000000',
                 fontFamily: 'var(--font-heading)',
                 fontSize: 40,
-                fontWeight: 700,
+                fontWeight: 400,
+                fontSynthesis: 'none',
                 lineHeight: '48px',
                 letterSpacing: '-0.2px',
               }}

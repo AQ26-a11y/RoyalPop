@@ -80,6 +80,7 @@ export function FloatingCTA({ onOpen }: FloatingCTAProps) {
                 fontFamily: 'var(--font-heading)',
                 fontSize: 32,
                 fontWeight: 400,
+                fontSynthesis: 'none',
                 lineHeight: '32px',
                 letterSpacing: '-0.64px',
                 color: '#1A1A1A',

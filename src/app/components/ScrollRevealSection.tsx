@@ -5,7 +5,8 @@ import ambientataBig from '../../imports/Ambientata-big.jpg'
 const TITLE_STYLE = {
   fontFamily: 'var(--font-heading)',
   fontSize: 40,
-  fontWeight: 600,
+  fontWeight: 400,
+  fontSynthesis: 'none',
   lineHeight: '48px',
   letterSpacing: '-0.5px',
   color: '#1A1A1A',
