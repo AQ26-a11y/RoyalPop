@@ -2,26 +2,26 @@ import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { gsap } from 'gsap'
 
 // ── Card back (same for all cards) ──────────────────────────────────────────
-import cardBack from '../../imports/card-memory-latoA-2.png'
+const cardBack = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='
 
 // ── Pair images: [variant-A, variant-B] ─────────────────────────────────────
 // To add a new pair, append one entry here — no other changes needed.
-import blaueAcht1   from '../../imports/Blaue-Acht-1-1.png'
-import blaueAcht2   from '../../imports/Blaue-Acht-1-1.png'
-import greenEight1  from '../../imports/Green-Eight-1-1.png'
-import greenEight2  from '../../imports/Green-Eight-1-1.png'
-import huitBlanc1   from '../../imports/Huit-Blanc-1-1.png'
-import huitBlanc2   from '../../imports/Huit-Blanc-1-1.png'
-import lanBa1       from '../../imports/Lan-Ba-1-2.png'
-import lanBa2       from '../../imports/Lan-Ba-1-2.png'
-import ochoNegro1   from '../../imports/Ocho-Negro-1-1.png'
-import ochoNegro2   from '../../imports/Ocho-Negro-1-1.png'
-import orenji1      from '../../imports/Orenji-Hachi-1.png'
-import orenji2      from '../../imports/Orenji-Hachi-1.png'
-import otgRoz1      from '../../imports/Otg-Roz-1.png'
-import otgRoz2      from '../../imports/Otg-Roz-1.png'
-import ottoRosso1   from '../../imports/Otto-Rosso-1.png'
-import ottoRosso2   from '../../imports/Otto-Rosso-1.png'
+const blaueAcht1 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='
+const blaueAcht2 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='
+const greenEight1 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='
+const greenEight2 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='
+const huitBlanc1 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='
+const huitBlanc2 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='
+const lanBa1 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='
+const lanBa2 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='
+const ochoNegro1 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='
+const ochoNegro2 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='
+const orenji1 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='
+const orenji2 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='
+const otgRoz1 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='
+const otgRoz2 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='
+const ottoRosso1 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='
+const ottoRosso2 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='
 
 // ── Card pair configuration ──────────────────────────────────────────────────
 // Each tuple is [variantA, variantB] — the two front-face images for that pair.
@@ -57,7 +57,7 @@ function createCards(): Card[] {
   return shuffleArray(deck).map((c, id) => ({ id, ...c }))
 }
 
-import qrImage from '../../imports/qr-swatch-com.png'
+const qrImage = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='
 
 // ── Component ────────────────────────────────────────────────────────────────
 interface Props { isOpen: boolean; onClose: () => void }
