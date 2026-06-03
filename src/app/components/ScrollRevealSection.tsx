@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
-const ambientataBig = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='
+import ambientataBig from '../../imports/Ambientata-big.jpg'
 
 const TITLE_STYLE = {
   fontFamily: 'var(--font-heading)',

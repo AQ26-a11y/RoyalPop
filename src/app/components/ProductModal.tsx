@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
-const lanBaFrontal = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='
+import lanBaFrontal from '../../imports/LAN-BA-Frontal-3.png'
 import iconDiameter from '../../imports/arrows_left_right_circle_24dp_000000_FILL0_wght300_GRAD0_opsz24_1.svg'
 import iconThickness from '../../imports/height_24dp_000000_FILL0_wght300_GRAD0_opsz24_1.svg'
 import iconColour from '../../imports/colors_24dp_000000_FILL0_wght300_GRAD0_opsz24_1.svg'
