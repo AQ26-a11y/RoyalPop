@@ -1,0 +1,302 @@
+#### Titoloni fullwidth — adattamento responsivo
+
+I titoloni `title-big` sono progettati a 144px su desktop. Per adattarli ai breakpoint
+senza perdere il comportamento "riempie il viewport", usa `clamp` + `vw` con calcolo
+basato sulle proporzioni originali (144px su ~1440px desktop = ~10vw):
+
+```css
+.title-big {
+  font-size: clamp(
+    48px,          /* minimum: non scende sotto 48px (= --title-small-size) */
+    10vw,          /* fluid: proporzionale al viewport */
+    144px          /* maximum: il valore di design originale */
+  );
+  line-height: 0.86;  /* 124/144 = 0.861 — mantieni il ratio anche in fluid */
+  letter-spacing: -0.01em;
+  white-space: nowrap; /* riga singola — NON wrappare i titoloni hero */
+}
+
+/* Eccezione: titoloni multi-riga (sez. 03, sez. 07) */
+.title-big.multiline {
+  white-space: normal;
+  font-size: clamp(36px, 4.5vw, 80px); /* ridotto perché su più righe */
+  line-height: 0.86;
+}
+```
+
+#### Assegnazione per sezione
+
+```
+SEZIONE 01 Hero
+  "THE NEW ROYAL POP"        → .title-big  (fullwidth, white-space: nowrap)
+  "POP NEVER STOPS"          → .title-big  (fullwidth, "POP" in accent #E8321A)
+
+SEZIONE 02 Titolone
+  "AUDEMARS PIGUET & SWATCH" → .title-big  (fullwidth, su sfondo #191919, colore #FFF)
+
+SEZIONE 03
+  Titolo colonna sinistra    → .title-big .multiline
+  Body copy                  → .text-big
+
+SEZIONE 04 Titolone
+  "SCOPRI LA COLLEZIONE..."  → .title-big  (fullwidth)
+  Nome variante sotto card   → .title-small
+
+SEZIONE 05 Pillole
+  Nome materiale (BIOCERAMIC ecc.) → .title-small
+  Descrizione pillola        → .text-small
+
+SEZIONE 06 Titolone
+  "UNA NUOVA INTERPRETAZIONE
+   DELL'OROLOGIO DA TASCA"   → .title-big .multiline (sfondo scuro)
+
+SEZIONE 07
+  "PRONTO A FARE COLPO..."   → .title-big .multiline
+  Body copy                  → .text-small
+  CTA label                  → .text-xsmall (uppercase, letter-spacing: 0.1em)
+
+NAVIGATION STICKY
+  Logo label / micro-testo   → .text-xsmall
+  CTA "Find a Store"         → .text-xsmall (uppercase)
+  CTA "Buy Now"              → .text-xsmall (uppercase)
+```
+
+#### Caricamento font
+
+BBH Bogle è un font proprietario — deve essere fornito come file `.woff2`.
+Caricalo con `@font-face` prima di qualsiasi altro stile:
+
+```css
+@font-face {
+  font-family: 'BBH Bogle';
+  src: url('/fonts/BBHBogle-Bold.woff2') format('woff2'),
+       url('/fonts/BBHBogle-Bold.woff')  format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;   /* evita FOIT — mostra fallback Impact durante il caricamento */
+}
+```
+
+> **Fallback importante:** se BBH Bogle non è ancora caricato al momento dell'animazione
+> mask reveal, SplitType misurerà le dimensioni del testo fallback (Impact) — larghezze diverse.
+> Soluzione: inizializza SplitType **solo dopo** `document.fonts.ready`:
+> ```javascript
+> document.fonts.ready.then(() => {
+>   const split = new SplitType('.hero-title', { types: 'words' })
+>   // poi lancia le animazioni GSAP
+> })
+> ```
+
+---
+
+## CURSORE CUSTOM — SPECIFICA COMPLETA
+
+> **Riferimento visivo:** il cursore è un'icona SVG personalizzata a forma di freccia pixel-art / retro digitale, coerente con l'estetica pop del progetto. Di seguito il codice SVG esatto da usare come cursore default.
+
+### SVG del cursore (48×48px, freccia pixel-art nera)
+```svg
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M26.28 29.7075V34.2825H28.575V32.0025H37.71V27.4275H35.43V29.7075H26.28Z" fill="black"/>
+  <path d="M33.1349 25.1324H35.4299V27.4274H33.1349V25.1324Z" fill="black"/>
+  <path d="M30.855 38.8575H33.135V43.4175H30.855V38.8575Z" fill="black"/>
+  <path d="M30.855 22.8525H33.135V25.1325H30.855V22.8525Z" fill="black"/>
+  <path d="M28.575 34.2825H30.855V38.8575H28.575V34.2825Z" fill="black"/>
+  <path d="M28.575 20.5724H30.855V22.8524H28.575V20.5724Z" fill="black"/>
+  <path d="M26.28 43.4175H30.855V45.7125H26.28V43.4175Z" fill="black"/>
+  <path d="M26.28 18.2775H28.575V20.5725H26.28V18.2775Z" fill="black"/>
+  <path d="M24 38.8575H26.28V43.4175H24V38.8575Z" fill="black"/>
+  <path d="M24 15.9975H26.28V18.2775H24V15.9975Z" fill="black"/>
+  <path d="M21.705 34.2825H24V38.8575H21.705V34.2825Z" fill="black"/>
+  <path d="M21.705 13.7025H24V15.9975H21.705V13.7025Z" fill="black"/>
+  <path d="M19.425 32.0025H21.705V34.2825H19.425V32.0025Z" fill="black"/>
+  <path d="M19.425 11.4225H21.705V13.7025H19.425V11.4225Z" fill="black"/>
+  <path d="M17.145 34.2825H19.425V36.5625H17.145V34.2825Z" fill="black"/>
+  <path d="M17.145 9.14246H19.425V11.4225H17.145V9.14246Z" fill="black"/>
+  <path d="M14.85 36.5625H17.145V38.8575H14.85V36.5625Z" fill="black"/>
+  <path d="M14.85 6.84747H17.145V9.14247H14.85V6.84747Z" fill="black"/>
+  <path d="M10.29 2.28748V41.1375H14.85V38.8575H12.57V6.84748H14.85V4.56748H12.57V2.28748H10.29Z" fill="black"/>
+</svg>
+```
+
+Salva questo SVG come `cursor-default.svg` e usalo come cursore CSS:
+```css
+* { cursor: url('cursor-default.svg') 10 2, auto; }
+```
+L'hotspot `10 2` posiziona il punto attivo sulla punta superiore della freccia.
+
+### Implementazione JavaScript del cursore
+Non usare il CSS `cursor:` nativo per i cambi di stato — è troppo lento e non permette animazioni. Usa invece un elemento DOM che segue il mouse:
+
+```html
+<!-- Nel <body>, primo figlio -->
+<div id="cursor-wrapper" aria-hidden="true">
+  <div id="cursor-svg">
+    <!-- Incolla qui l'SVG sopra -->
+  </div>
+  <div id="cursor-label"></div>
+</div>
+```
+
+```css
+body { cursor: none; }
+
+#cursor-wrapper {
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 99999;
+  /* L'SVG ha hotspot in alto a sinistra — nessun offset aggiuntivo */
+}
+
+#cursor-svg {
+  width: 48px; height: 48px;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+              opacity 0.2s ease;
+  transform-origin: top left;
+}
+
+#cursor-label {
+  position: absolute;
+  top: 44px; left: 8px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 11px;  /* sotto --text-xsmall per UI cursore */
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: #191919;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Stato: hover su link/button */
+#cursor-wrapper[data-state="hover"] #cursor-svg {
+  transform: scale(0.75);
+}
+
+/* Stato: drag carousel */
+#cursor-wrapper[data-state="drag"] #cursor-svg {
+  transform: rotate(90deg) scale(1.1);
+}
+#cursor-wrapper[data-state="drag"] #cursor-label {
+  opacity: 1;
+  content: "DRAG";
+}
+/* Imposta il testo via JS: cursorLabel.textContent = 'DRAG ←→' */
+
+/* Stato: video fullscreen */
+#cursor-wrapper[data-state="video"] #cursor-svg {
+  opacity: 0;
+}
+#cursor-wrapper[data-state="video"] #cursor-label {
+  opacity: 1;
+  font-size: 13px;
+  /* JS: '▶ PLAY' oppure '⏸ PAUSE' in base allo stato video */
+}
+
+/* Nascondi su touch */
+@media (hover: none) {
+  #cursor-wrapper { display: none; }
+  body { cursor: auto; }
+}
+```
+
+```javascript
+const wrapper = document.getElementById('cursor-wrapper')
+const label   = document.getElementById('cursor-label')
+let mouseX = 0, mouseY = 0
+
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX
+  mouseY = e.clientY
+  wrapper.style.transform = `translate(${mouseX}px, ${mouseY}px)`
+})
+
+// Cambio stato contestuale
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => wrapper.dataset.state = 'hover')
+  el.addEventListener('mouseleave', () => wrapper.dataset.state = 'default')
+})
+
+document.querySelectorAll('[data-cursor="drag"]').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    wrapper.dataset.state = 'drag'
+    label.textContent = 'DRAG ←→'
+  })
+  el.addEventListener('mouseleave', () => {
+    wrapper.dataset.state = 'default'
+    label.textContent = ''
+  })
+})
+
+// Video fullscreen
+const videoSection = document.getElementById('video-fullscreen')
+if (videoSection) {
+  videoSection.addEventListener('mouseenter', () => {
+    wrapper.dataset.state = 'video'
+    label.textContent = '▶ PLAY'
+  })
+  videoSection.addEventListener('mouseleave', () => {
+    wrapper.dataset.state = 'default'
+  })
+  videoSection.addEventListener('click', () => {
+    const video = videoSection.querySelector('video')
+    if (video.paused) {
+      video.play()
+      label.textContent = '⏸ PAUSE'
+    } else {
+      video.pause()
+      label.textContent = '▶ PLAY'
+    }
+  })
+}
+```
+
+> **Nota estetica:** la freccia pixel-art è volutamente retro e pop — richiama i cursori dei primi computer degli anni '80, perfettamente coerente con il tema "Pop Never Stops". Su sfondo scuro (sezioni nere), inverti il fill SVG a bianco usando `filter: invert(1)` sul wrapper.
+
+```javascript
+// Inverti il cursore nelle sezioni scure
+const darkSections = document.querySelectorAll('.section-dark')
+const cursorSvgEl  = document.getElementById('cursor-svg')
+
+const darknessObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) cursorSvgEl.style.filter = 'invert(1)'
+    else cursorSvgEl.style.filter = 'invert(0)'
+  })
+}, { threshold: 0.5 })
+
+darkSections.forEach(s => darknessObserver.observe(s))
+```
+
+---
+
+## NAVIGATION STICKY
+
+```
+Logo AP × Swatch [stack verticale] → al scroll > 60px: transizione a layout orizzontale inline compresso
+CTA "Find a Store" [text link, outline sottile] + "Buy Now" [filled, colore accent]
+```
+- La nav diventa sticky immediatamente. Background: `rgba(255,255,255,0.92)` con `backdrop-filter: blur(12px)`
+- Su mobile: solo logo + "Buy Now" visibili
+- Le due CTA devono sempre essere visibili — sticky sia su desktop che mobile
+
+**Animazione CTA all'entrata (split asimmetrico):**
+```
+"Find a Store" → translateX(-40px) + opacity 0→1, delay 0ms, duration 600ms
+"Buy Now"      → translateX(+40px) + opacity 0→1, delay 120ms, duration 600ms
+Easing: cubic-bezier(0.34, 1.56, 0.64, 1) — spring finale
+```
+Partono a `t=1400ms` nella sequenza hero, dopo le mascotte.
+
+**Hover "Find a Store" (ghost):**
+`::before` con `scaleX(0→1)`, `transform-origin: left`, testo cambia colore in sync — duration 280ms
+
+**Hover "Buy Now" (filled):**
+Shimmer diagonale: `::before` con gradiente `transparent → rgba(255,255,255,0.25) → transparent`, `translateX(-100%→+100%)` — duration 350ms + `scale(1.02)`
+
+**Sticky durante lo scroll:**
+- Entrano con `translateY(-100%)→translateY(0)`, 400ms
+- Nav guadagna `backdrop-filter: blur(12px)` simultaneamente
+- Su mobile: bottom bar sale con `translateY(+60px)→0`
+
+---

@@ -1,0 +1,21 @@
+node_modules/
+dist/
+.DS_Store
+
+# Exclude binary image assets from src/imports to stay under 50MB
+src/imports/*.jpg
+src/imports/*.jpeg
+src/imports/*.png
+src/imports/*.webp
+src/imports/*.gif
+src/imports/*.mp4
+src/imports/*.mov
+
+# Keep SVGs — they are code
+!src/imports/*.svg
+
+# Exclude large video in public
+public/Campaign-video.mp4
+
+# Vite cache
+node_modules/.vite

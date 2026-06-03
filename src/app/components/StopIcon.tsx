@@ -1,0 +1,12 @@
+import React from 'react'
+
+export function StopIcon({ style }: { style?: React.CSSProperties }) {
+  return (
+    <svg width="48" height="48" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" style={style}>
+      <path d="M36.57 30.38H33.52V31.9H35.04V48.66H33.52V50.19H36.57V48.66H38.09V31.9H36.57V30.38Z" fill="white"/>
+      <path d="M32 31.9H33.52V48.66H32V31.9Z" fill="white"/>
+      <path d="M46.57 30.38H43.52V31.9H45.04V48.66H43.52V50.19H46.57V48.66H48.09V31.9H46.57V30.38Z" fill="white"/>
+      <path d="M42 31.9H43.52V48.66H42V31.9Z" fill="white"/>
+    </svg>
+  )
+}
